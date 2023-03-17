@@ -3,7 +3,7 @@ Transform: AWS::Serverless-2016-10-31
 Description: SAM template for Python Lambda function with dependencies
 
 Metadata:
-  BuildMethod: python3.10
+  BuildMethod: python3.9
   PythonRequirements:
     - requirements.txt
 
@@ -17,12 +17,22 @@ Resources:
       Runtime: python3.9
       MemorySize: 128
       Timeout: 30
-      Environment:
-        Variables:
-          MY_VAR: "my-value"
       Policies:
         - DynamoDBCrudPolicy:
             TableName: BlogPosts
+
+  SendEmailsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: Send_Emails_Content_Drip
+      CodeUri: email_content/
+      Handler: app.send_emails
+      Runtime: python3.9
+      MemorySize: 128
+      Timeout: 30
+      Policies:
+        - AmazonS3ReadOnlyAccess
+        - AmazonSESFullAccess
 
   BlogPostsTable:
     Type: AWS::DynamoDB::Table
@@ -37,3 +47,14 @@ Resources:
       ProvisionedThroughput:
         ReadCapacityUnits: 1
         WriteCapacityUnits: 1
+      
+  ExcelSheetsBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: customer-drip-inbound
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        IgnorePublicAcls: true
+        BlockPublicPolicy: true
+        RestrictPublicBuckets: true
+

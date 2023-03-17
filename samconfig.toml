@@ -22,9 +22,10 @@ capabilities = "CAPABILITY_IAM"
 confirm_changeset = true
 resolve_s3 = true
 s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1t07fv8fcdeas"
-s3_prefix = "sam-app"
+s3_prefix = "content-collection"
 region = "us-east-1"
 image_repositories = []
+stack_name = "content-collection"
 
 [default.package]
 [default.package.parameters]
@@ -41,3 +42,27 @@ warm_containers = "EAGER"
 [default.local_start_lambda]
 [default.local_start_lambda.parameters]
 warm_containers = "EAGER"
+
+[personal]
+[personal.deploy]
+[personal.deploy.parameters]
+stack_name = "content-collection"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-11vns34sasgrg"
+s3_prefix = "content-collection"
+region = "us-east-1"
+profile = "personal"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
+
+[Personal]
+[Personal.deploy]
+[Personal.deploy.parameters]
+stack_name = "content-collection"
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-11vns34sasgrg"
+s3_prefix = "content-collection"
+region = "us-east-1"
+profile = "personal"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+image_repositories = []
