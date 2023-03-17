@@ -27,13 +27,13 @@ def send_emails(event, context):
     # Iterate through the rows of the worksheet and send an email to each contact
     for row in sheet.iter_rows(min_row=2, values_only=True):
         # Check if Contact Information is not blank
-        contact_information = row[10]  # ColumnK
+        contact_information = row[10]  # Column K
 
         if contact_information:
             # Get email and URL from the row
             email = contact_information
             url = row[3]  # Column D
-            subject = row[0]  # Column A
+            subject = row[0] if row[0] else "Default Subject"  # Column A
 
             # Construct email message
             subject = subject
@@ -42,7 +42,7 @@ def send_emails(event, context):
             recipient = email
 
             # Send email using SES client
-            response=ses_client.send_email(
+            response = ses_client.send_email(
                 Destination={
                     'ToAddresses': [
                         recipient,
