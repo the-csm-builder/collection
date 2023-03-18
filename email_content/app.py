@@ -3,6 +3,16 @@ from datetime import date
 from openpyxl import load_workbook
 import io
 
+def get_parameter_value(parameter_name):
+    client = boto3.client('ssm')
+    response = client.get_parameter(
+        Name=parameter_name,
+        WithDecryption=True
+    )
+    return response['Parameter']['Value']
+
+# Retrieve the email address from the Parameter Store
+sender = get_parameter_value('SenderEmailAddress')
 
 def send_emails(event, context):
 
@@ -38,7 +48,7 @@ def send_emails(event, context):
             # Construct email message
             subject = subject
             body_text = f'Hello,\n\nPlease visit this URL: {url}\n\nThank you!'
-            sender = 'jklacyn@amazon.com'
+            sender = sender
             recipient = email
 
             # Send email using SES client
