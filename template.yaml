@@ -11,22 +11,22 @@ Resources:
   MyFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: Load_Blogs_DDB
-      CodeUri: get_blogs/
+      FunctionName: 'FUNCTION_NAME'
+      CodeUri: 'LOCATION'/
       Handler: app.lambda_handler
       Runtime: python3.9
       MemorySize: 128
       Timeout: 30
       Policies:
         - DynamoDBCrudPolicy:
-            TableName: BlogPosts
+            TableName: 'TABLE_NAME'
 
   SendEmailsFunction:
     Type: AWS::Serverless::Function
     Properties:
-      FunctionName: Send_Emails_Content_Drip
-      CodeUri: email_content/
-      Handler: app.send_emails
+      FunctionName: 'FUNCTION_NAME'
+      CodeUri: 'LOCATION'
+      Handler: 'HANDLER'
       Runtime: python3.9
       MemorySize: 128
       Timeout: 30
@@ -37,7 +37,7 @@ Resources:
   BlogPostsTable:
     Type: AWS::DynamoDB::Table
     Properties:
-      TableName: BlogPosts
+      TableName: 'TABLE_NAME'
       AttributeDefinitions:
         - AttributeName: Title
           AttributeType: S
@@ -51,7 +51,7 @@ Resources:
   ExcelSheetsBucket:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: customer-drip-inbound
+      BucketName: 'BUCKET_NAME'
       PublicAccessBlockConfiguration:
         BlockPublicAcls: true
         IgnorePublicAcls: true
