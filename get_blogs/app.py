@@ -9,7 +9,7 @@ def lambda_handler(event, context):
 
     # Create a DynamoDB resource
     dynamodb = boto3.resource('dynamodb')
-    table_name = 'BlogPosts'
+    table_name = 'TABLE_NAME'
     table = dynamodb.Table(table_name)
 
     url = 'https://aws.amazon.com/blogs/security'
